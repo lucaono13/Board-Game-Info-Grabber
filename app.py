@@ -96,7 +96,7 @@ class Ui_MainWindow(object):
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
-        self.bgg_tabs.setCurrentIndex(1)
+        self.bgg_tabs.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.searchLine, self.searchButton)
         MainWindow.setTabOrder(self.searchButton, self.gameCheck)
