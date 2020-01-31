@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-*1.ui
-=======
-*.ui
->>>>>>> fff34e4c96ebb70d94e71eb6fbcb08ac11fe669c
+test_run1.ui
 
 venv/
 __pycache__/

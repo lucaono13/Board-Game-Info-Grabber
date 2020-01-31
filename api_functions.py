@@ -47,7 +47,17 @@ def query(search, gameCheck, expanCheck):
     for i in range(len(name)):
         print(name[i] + ", " + year[i] + ": " + id[i] + "; " + type[i])
     """
-    return(name, year, id, type)
+    type2 = [t.replace('boardgameexpansion','Board Game Expansion') for t in type]
+    type2 = [t.replace('boardgameaccessory','Board Game Accessory') for t in type2]
+    type2 = [t.replace('boardgame','Board Game') for t in type2]
+    type2 = [t.replace('rpgitem','RPG Item') for t in type2]
+    type2 = [t.replace('videogame','Video Game') for t in type2]
+
+    #pics = getBoxArt(id)
+
+
+
+    return(name, year, id, type2)
 
 # Get the box art for each result
 def getBoxArt(ids):
