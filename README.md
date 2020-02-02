@@ -5,3 +5,17 @@ Another application created in order to get board game data from Board Game Geek
  * main.py is used to run application
 
  Based off Kivy created application. Will be using functions from that app as well as adding more features.
+
+** Features **
+* Search Board Game Geek for games matching search
+* Sort by name, year, ID, or type2
+* Add to running list (list show on the right)
+* Remove from running list
+
+** Features to come **
+* Ability to get basic data for a game using Board Game Geek's XML API 2 (e.g. name, year, min & max players/playtime, age, complexity, etc)
+* Get more complex data (list in a list) of a game using same API (e.g. Designers, Artists, Categories, Mechanics, etc.)
+* Import existing .csv file and add/remove games
+* Preview .csv file before export
+* Export completed .csv file
+* Add owners to board games if wanted

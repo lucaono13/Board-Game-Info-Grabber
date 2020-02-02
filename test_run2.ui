@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>769</width>
-    <height>505</height>
+    <width>995</width>
+    <height>712</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -219,11 +219,24 @@
        <attribute name="title">
         <string>CSV Edit</string>
        </attribute>
+       <layout class="QGridLayout" name="gridLayout_6"/>
       </widget>
       <widget class="QWidget" name="csvPreview">
        <attribute name="title">
         <string>CSV Preview</string>
        </attribute>
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="0" column="0">
+         <widget class="QTableWidget" name="tableWidget"/>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -235,11 +248,23 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>769</width>
-     <height>21</height>
+     <width>995</width>
+     <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+   </widget>
+   <addaction name="menuFile"/>
   </widget>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>searchLine</tabstop>
