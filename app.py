@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'test_run2.ui'
+# Form implementation generated from reading ui file 'main_window.ui'
 #
 # Created by: PyQt5 UI code generator 5.13.0
 #
@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(995, 712)
+        MainWindow.resize(995, 667)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -54,6 +54,7 @@ class Ui_MainWindow(object):
         self.bgg_tabs.setTabPosition(QtWidgets.QTabWidget.North)
         self.bgg_tabs.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.bgg_tabs.setIconSize(QtCore.QSize(16, 16))
+        self.bgg_tabs.setDocumentMode(False)
         self.bgg_tabs.setTabBarAutoHide(False)
         self.bgg_tabs.setObjectName("bgg_tabs")
         self.bgg_search_tab = QtWidgets.QWidget()
@@ -62,6 +63,7 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.searchResults = QtWidgets.QTableWidget(self.bgg_search_tab)
         self.searchResults.setFrameShape(QtWidgets.QFrame.WinPanel)
+        self.searchResults.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.searchResults.setAlternatingRowColors(True)
         self.searchResults.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
         self.searchResults.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
@@ -102,6 +104,7 @@ class Ui_MainWindow(object):
         spacerItem = QtWidgets.QSpacerItem(15, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.gridLayout_3.addItem(spacerItem, 2, 0, 1, 1)
         self.dataCollectionStart = QtWidgets.QPushButton(self.bgg_search_tab)
+        self.dataCollectionStart.setEnabled(True)
         self.dataCollectionStart.setObjectName("dataCollectionStart")
         self.gridLayout_3.addWidget(self.dataCollectionStart, 8, 0, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout_3, 0, 1, 1, 1)
@@ -167,7 +170,7 @@ class Ui_MainWindow(object):
         self.bgg_tabs.setTabText(self.bgg_tabs.indexOf(self.bgg_search_tab), _translate("MainWindow", "BGG Search"))
         self.bgg_tabs.setTabToolTip(self.bgg_tabs.indexOf(self.bgg_search_tab), _translate("MainWindow", "Search Board Game Geek"))
         self.bgg_tabs.setTabText(self.bgg_tabs.indexOf(self.csv_edit), _translate("MainWindow", "CSV Edit"))
-        self.pushButton.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton.setText(_translate("MainWindow", "Export"))
         self.bgg_tabs.setTabText(self.bgg_tabs.indexOf(self.csvPreview), _translate("MainWindow", "CSV Preview"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.actionOpen.setText(_translate("MainWindow", "Open"))

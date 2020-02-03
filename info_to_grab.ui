@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>579</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="9" column="0">
+     <widget class="QCheckBox" name="name">
+      <property name="text">
+       <string>Name</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="0">
+     <widget class="QCheckBox" name="bnPlayers">
+      <property name="text">
+       <string>Best Number of Players</string>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="0">
+     <widget class="QCheckBox" name="nRatings">
+      <property name="text">
+       <string>Number of Ratings</string>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="0">
+     <widget class="QCheckBox" name="bgg_rank">
+      <property name="text">
+       <string>BGG Rank</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QCheckBox" name="integrations">
+      <property name="text">
+       <string>Integrations</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QCheckBox" name="designers">
+      <property name="text">
+       <string>Designers</string>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="0">
+     <widget class="QCheckBox" name="nPlayers">
+      <property name="text">
+       <string>Number of Players</string>
+      </property>
+     </widget>
+    </item>
+    <item row="18" column="0">
+     <widget class="QCheckBox" name="expans">
+      <property name="text">
+       <string>Expansion Names</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QCheckBox" name="categories">
+      <property name="text">
+       <string>Categories</string>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="0">
+     <widget class="QCheckBox" name="age">
+      <property name="text">
+       <string>Age</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QCheckBox" name="type">
+      <property name="text">
+       <string>Type</string>
+      </property>
+     </widget>
+    </item>
+    <item row="17" column="0">
+     <widget class="QCheckBox" name="nExpan">
+      <property name="text">
+       <string>Number of Expansions</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QCheckBox" name="complexity">
+      <property name="text">
+       <string>Complexity</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QCheckBox" name="mechanisms">
+      <property name="text">
+       <string>Mechanisms</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="0">
+     <widget class="QCheckBox" name="year">
+      <property name="text">
+       <string>Year</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="0">
+     <widget class="QCheckBox" name="gb_analysis">
+      <property name="text">
+       <string>Geek Buddy Analysis</string>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="0">
+     <widget class="QCheckBox" name="playTime">
+      <property name="text">
+       <string>Playtime</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QCheckBox" name="publisher">
+      <property name="text">
+       <string>Publishers</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QCheckBox" name="artists">
+      <property name="text">
+       <string>Artists</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

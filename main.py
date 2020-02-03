@@ -4,15 +4,26 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QTableWidgetItem, QLabel
 from PyQt5.QtGui import QPixmap
 from app import Ui_MainWindow
+from info import Ui_MainWindow as window2
 from api_functions import query
 import sys
 import urllib
 data = []
 
+class secondWindow(QtWidgets.QMainWindow):
+    def __init__(self):
+        super(secondWindow,self).__init__()
+        self.ui = window2()
+        self.ui.setupUi(self)
+
 
 class mywindow(QtWidgets.QMainWindow):
+
+    # Variables used across multiple functions
     gamesToBeAdded = []
     ids_toAdd = []
+
+
     def __init__(self):
         super(mywindow,self).__init__()
         self.ui = Ui_MainWindow()
@@ -23,10 +34,14 @@ class mywindow(QtWidgets.QMainWindow):
         header = self.ui.searchResults.horizontalHeader()
         header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
 
+        self.ui.bgg_tabs.setTabEnabled(1, False)
+        self.ui.bgg_tabs.setTabEnabled(2, False)
+
         self.ui.searchButton.clicked.connect(self.api_search)
         self.ui.searchLine.returnPressed.connect(self.api_search)
         self.ui.addButton.clicked.connect(self.addIDs)
         self.ui.removeButton.clicked.connect(self.removeIDs)
+        self.ui.dataCollectionStart.clicked.connect(self.whatInfo)
 
     def api_search(self):
         answers = query(self.ui.searchLine.text(), self.ui.gameCheck.isChecked(), self.ui.expanCheck.isChecked())
@@ -66,33 +81,21 @@ class mywindow(QtWidgets.QMainWindow):
                 addedGames.append("%s (%s)" % (name, year))
             else:
                 print("%s already in list" % (self.ui.searchResults.item(idx.row(),0).text()))
-
-        #print("")
-        #print(self.ui.selectedGamees.count())
-        #self.ui.selectedGamees.setRowCount(len(gamesToBeAdded))
-        row = 0
         for game in addedGames:
-            #info = QListWidgetItem(game)
             self.ui.selectedGamees.insertItem(self.ui.selectedGamees.count(),game)
-            #row += 1
         addedGames.clear()
+        self.ui.searchResults.selectionModel().clearSelection()
 
     def removeIDs(self):
-        #listedgames = gamesToBeAdded
-
         for j in range(len(self.ids_toAdd)):
             print(self.gamesToBeAdded[j], self.ids_toAdd[j])
-
-
         r_idxs = []
         for idx in self.ui.selectedGamees.selectionModel().selectedRows():
             gamename = self.ui.selectedGamees.item(idx.row()).text()
             r_idxs.append(self.gamesToBeAdded.index(gamename))
             self.gamesToBeAdded = [x for x in self.gamesToBeAdded if x is not gamename]
-
         for item in self.ui.selectedGamees.selectedItems():
             self.ui.selectedGamees.takeItem(self.ui.selectedGamees.row(item))
-
         for i in r_idxs:
             del self.ids_toAdd[i]
 
@@ -103,6 +106,10 @@ class mywindow(QtWidgets.QMainWindow):
     def refreshList(self):
         pass
 
+    def whatInfo(self):
+        window = QtWidgets.QApplication([])
+        secondary = secondWindow()
+        secondary.show()
 
 app = QtWidgets.QApplication([])
 application = mywindow()
