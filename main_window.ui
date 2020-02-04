@@ -224,19 +224,13 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="csv_edit">
-       <attribute name="title">
-        <string>CSV Edit</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_6"/>
-      </widget>
       <widget class="QWidget" name="csvPreview">
        <attribute name="title">
         <string>CSV Preview</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_7">
         <item row="0" column="0">
-         <widget class="QTableWidget" name="tableWidget"/>
+         <widget class="QTableWidget" name="csvPreview_2"/>
         </item>
         <item row="0" column="1">
          <widget class="QPushButton" name="pushButton">
@@ -246,6 +240,12 @@
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QWidget" name="csv_edit">
+       <attribute name="title">
+        <string>CSV Edit</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_6"/>
       </widget>
      </widget>
     </item>
