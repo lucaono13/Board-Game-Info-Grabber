@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>510</width>
-    <height>300</height>
+    <height>323</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -58,13 +58,23 @@
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="2" column="0">
-         <widget class="QCheckBox" name="nPlayers">
+        <item row="1" column="0">
+         <widget class="QCheckBox" name="age">
           <property name="text">
-           <string>Number of Players</string>
+           <string>Age</string>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QCheckBox" name="playTime">
+          <property name="text">
+           <string>Playtime</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -78,13 +88,13 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QCheckBox" name="age">
+        <item row="2" column="0">
+         <widget class="QCheckBox" name="nPlayers">
           <property name="text">
-           <string>Age</string>
+           <string>Number of Players</string>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -94,17 +104,7 @@
            <string>Year</string>
           </property>
           <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QCheckBox" name="playTime">
-          <property name="text">
-           <string>Playtime</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -112,6 +112,23 @@
          <widget class="QCheckBox" name="bggUID">
           <property name="text">
            <string>BGG ID</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QCheckBox" name="description">
+          <property name="text">
+           <string>Description</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QCheckBox" name="image">
+          <property name="text">
+           <string>Image</string>
           </property>
          </widget>
         </item>
@@ -202,7 +219,7 @@
            <string>BGG Rank</string>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -212,7 +229,7 @@
            <string>Complexity</string>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -227,6 +244,13 @@
          <widget class="QCheckBox" name="rating">
           <property name="text">
            <string>Rating</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QCheckBox" name="bgg_link">
+          <property name="text">
+           <string>BGG Link</string>
           </property>
          </widget>
         </item>
@@ -270,7 +294,7 @@
            <string>Mechanisms</string>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -280,7 +304,7 @@
            <string>Number of Expansions</string>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -304,7 +328,7 @@
            <string>Categories</string>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>

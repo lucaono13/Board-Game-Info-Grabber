@@ -26,8 +26,8 @@ class infoWindow(QtWidgets.QMainWindow):
 
     def passInfo(self):
         info.clear()
-        info.update([('id',self.ui.bggUID.isChecked()), ('age',self.ui.age.isChecked()), ('players',self.ui.nPlayers.isChecked()), ('name',self.ui.name.isChecked()), ('playtime',self.ui.playTime.isChecked()), ('year',self.ui.year.isChecked()), ('artists',self.ui.artists.isChecked()), ('categories',self.ui.categories.isChecked()), ('designers',self.ui.name.isChecked()), ('expans',self.ui.designers.isChecked()), ('mechanisms',self.ui.mechanisms.isChecked()), ('expans_c',self.ui.nExpan.isChecked()), ('publisher',self.ui.publisher.isChecked()), ('bbg_rank',self.ui.bgg_rank.isChecked()), ('bestPlayers',self.ui.bnPlayers.isChecked()), ('complexity',self.ui.complexity.isChecked()), ('ratings_c',self.ui.nRatings.isChecked()), ('rating',self.ui.rating.isChecked())])
-        print(info)
+        info.update([('id',self.ui.bggUID.isChecked()), ('age',self.ui.age.isChecked()), ('players',self.ui.nPlayers.isChecked()), ('name',self.ui.name.isChecked()), ('playtime',self.ui.playTime.isChecked()), ('year',self.ui.year.isChecked()), ('artists',self.ui.artists.isChecked()), ('categories',self.ui.categories.isChecked()), ('designers',self.ui.designers.isChecked()), ('expans',self.ui.expans.isChecked()), ('mechanisms',self.ui.mechanisms.isChecked()), ('expans_c',self.ui.nExpan.isChecked()), ('publisher',self.ui.publisher.isChecked()), ('bbg_rank',self.ui.bgg_rank.isChecked()), ('bestPlayers',self.ui.bnPlayers.isChecked()), ('complexity',self.ui.complexity.isChecked()), ('ratings_c',self.ui.nRatings.isChecked()), ('rating',self.ui.rating.isChecked()), ('image',self.ui.image.isChecked()), ('description',self.ui.description.isChecked()), ('link',self.ui.bgg_link.isChecked())])
+        #print(info)
         grabInfo(info, Window.ids_toAdd)
         self.hide()
 

@@ -131,21 +131,83 @@ def grabInfo(info, ids):
             lol.append(i)
 
     gamedata = {x for x in lol}
-    print(gamedata)
+    #print(gamedata)
 
     r = requests.get(link)
     root = ET.fromstring(r.content)
+    print(info)
+    print(lol)
 
-    #print(lol)
-    for i in ids:
-        expdata[i] = {}
-        for x in lol:
-            if (x == 'id'):
-                expdata[i]['UID'] = i
-        expdata[i]['Link'] = "https://boardgamegeek.com/boardgame/{}".format(i)
+    for item in root.findall('item'):
+        id = item.get('id')
+        playtime = []
+        for x in item.iter('*'):
+            if(x.tag == 'item'):
+                expdata[id] = {}
+            if((x.tag == 'name')):
+                #print('name yes')
+                if('name' in lol):
+                    if(x.get('type') == 'primary'):
+                        expdata[id]['Name'] = x.get('value')
+            if((x.tag == 'yearpublished')):
+                #print('year yes')
+                if('year' in lol):
+                    expdata[id]['Year'] = x.get('value')
+            if((x.tag == 'minplaytime')):
+                #print('min time yes')
+                if('playtime' in lol):
+                    playtime.append(x.get('value'))
+            if((x.tag == 'maxplaytime')):
+                #print('max time yes')
+                if('playtime' in lol):
+                    playtime.append(x.get('value'))
+            if((x.tag == 'minplayers')):
+                #print('min play yes')
+                if('players' in lol):
+                    expdata[id]['Min. Players'] = x.get('value')
+            if((x.tag == 'maxplayers')):
+                #print('max play yes')
+                if('players' in lol):
+                    expdata[id]['Max Players'] = x.get('value')
+            if('id' in lol):
+                #print('id yes')
+                if('id' in lol):
+                    expdata[id]['UID'] = id
+            if((x.tag == 'description')):
+                #print('desc yes')
+                if('description' in lol):
+                    expdata[id]['Description'] = x.get('value')
+            if('link' in lol):
+                #print('link yes')
+                if('link' in lol):
+                    expdata[id]['Link'] = "https://boardgamegeek.com/boardgame/{}".format(id)
+            if((x.tag == 'minage')):
+                #print('age yes')
+                if('age' in lol):
+                    expdata[id]['Age'] = x.get('value')
+            if( (x.tag == 'rank')):
+                #print('bgg rank yes')
+                if('bgg_rank' in lol):
+                    if(x.get('friendlyname' == 'Board Game Rank')):
+                        expdata[id]['BGG Rank'] = x.get('value')
+            if((x.tag == 'usersrated')):
+                #print('ratings c yes')
+                if('ratings_c' in lol):
+                    expdata[id]['# of Ratings'] = x.get('value')
+            if( (x.tag == 'average')):
+                #print('rating yes')
+                if('rating' in lol):
+                    expdata[id]['BGG Score'] = x.get('value')
+            if((x.tag == 'averageweight')):
+                #print('weight yes')
+                if('complexity' in lol):
+                    expdata[id]['Complexity'] = x.get('value')
 
-    # Add to dict tin
-    for i in lol:
-        tin[i] = [i]
-    print('')
+            if(len(playtime) == 2):
+                time = '-'.join(map(str,playtime))
+                time = time + " min"
+                expdata[id]['Playtime'] = time
+
     print(expdata)
+
+#def dataGrab()
