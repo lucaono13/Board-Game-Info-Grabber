@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(995, 667)
+        MainWindow.resize(679, 470)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -104,7 +104,7 @@ class Ui_MainWindow(object):
         spacerItem = QtWidgets.QSpacerItem(15, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.gridLayout_3.addItem(spacerItem, 2, 0, 1, 1)
         self.dataCollectionStart = QtWidgets.QPushButton(self.bgg_search_tab)
-        self.dataCollectionStart.setEnabled(True)
+        self.dataCollectionStart.setEnabled(False)
         self.dataCollectionStart.setObjectName("dataCollectionStart")
         self.gridLayout_3.addWidget(self.dataCollectionStart, 8, 0, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout_3, 0, 1, 1, 1)
@@ -135,7 +135,7 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 995, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 679, 21))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")

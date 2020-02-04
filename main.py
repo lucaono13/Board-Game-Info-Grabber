@@ -5,19 +5,33 @@ from PyQt5.QtWidgets import QTableWidgetItem, QLabel
 from PyQt5.QtGui import QPixmap
 from app import Ui_MainWindow
 from info import Ui_MainWindow as window2
-from api_functions import query
+from api_functions import query, grabInfo
 import sys
 import urllib
 data = []
+info = {}
 
-class secondWindow(QtWidgets.QMainWindow):
+class infoWindow(QtWidgets.QMainWindow):
     def __init__(self):
-        super(secondWindow,self).__init__()
+        super(infoWindow,self).__init__()
         self.ui = window2()
         self.ui.setupUi(self)
 
+        self.ui.cancelButton.clicked.connect(self.close)
+        self.ui.grabButton.clicked.connect(self.passInfo)
 
-class mywindow(QtWidgets.QMainWindow):
+    def close(self):
+        self.hide()
+
+    def passInfo(self):
+        info.clear()
+        info.update([('id',self.ui.bggUID.isChecked()), ('age',self.ui.age.isChecked()), ('players',self.ui.nPlayers.isChecked()), ('name',self.ui.name.isChecked()), ('playtime',self.ui.playTime.isChecked()), ('year',self.ui.year.isChecked()), ('artists',self.ui.artists.isChecked()), ('categories',self.ui.categories.isChecked()), ('designers',self.ui.name.isChecked()), ('expans',self.ui.designers.isChecked()), ('mechanisms',self.ui.mechanisms.isChecked()), ('expans_c',self.ui.nExpan.isChecked()), ('publisher',self.ui.publisher.isChecked()), ('bbg_rank',self.ui.bgg_rank.isChecked()), ('bestPlayers',self.ui.bnPlayers.isChecked()), ('complexity',self.ui.complexity.isChecked()), ('ratings_c',self.ui.nRatings.isChecked()), ('rating',self.ui.rating.isChecked())])
+        print(info)
+        grabInfo(info, Window.ids_toAdd)
+        self.hide()
+
+
+class Window(QtWidgets.QMainWindow):
 
     # Variables used across multiple functions
     gamesToBeAdded = []
@@ -25,7 +39,7 @@ class mywindow(QtWidgets.QMainWindow):
 
 
     def __init__(self):
-        super(mywindow,self).__init__()
+        super(Window,self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui.searchResults.setRowCount(0)
@@ -40,8 +54,9 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.searchButton.clicked.connect(self.api_search)
         self.ui.searchLine.returnPressed.connect(self.api_search)
         self.ui.addButton.clicked.connect(self.addIDs)
+        self.ui.addButton.clicked.connect(self.enableButton)
         self.ui.removeButton.clicked.connect(self.removeIDs)
-        self.ui.dataCollectionStart.clicked.connect(self.whatInfo)
+        self.ui.dataCollectionStart.clicked.connect(self.newWindow)
 
     def api_search(self):
         answers = query(self.ui.searchLine.text(), self.ui.gameCheck.isChecked(), self.ui.expanCheck.isChecked())
@@ -86,6 +101,9 @@ class mywindow(QtWidgets.QMainWindow):
         addedGames.clear()
         self.ui.searchResults.selectionModel().clearSelection()
 
+    def enableButton(self):
+        self.ui.dataCollectionStart.setEnabled(True)
+
     def removeIDs(self):
         for j in range(len(self.ids_toAdd)):
             print(self.gamesToBeAdded[j], self.ids_toAdd[j])
@@ -106,12 +124,11 @@ class mywindow(QtWidgets.QMainWindow):
     def refreshList(self):
         pass
 
-    def whatInfo(self):
-        window = QtWidgets.QApplication([])
-        secondary = secondWindow()
-        secondary.show()
+    def newWindow(self):
+        self.w = infoWindow()
+        self.w.show()
 
 app = QtWidgets.QApplication([])
-application = mywindow()
+application = Window()
 application.show()
 sys.exit(app.exec())

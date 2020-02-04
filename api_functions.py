@@ -29,8 +29,6 @@ def query(search, gameCheck, expanCheck):
             type.append(child.get('type'))
         for primary in child.findall('name'):
             name.append(primary.get('value'))
-        """for pub in child.findall('yearpublished'):
-            year.append(pub.get('value'))"""
         for x in child:
             for j in x:
                 nkids += 1
@@ -117,3 +115,13 @@ def getInfo(csv, ids, df):
     for i in range(len(url)):
         df = df.append({'Name':name[i],'Year':year[i],'Min. Players':min[i], 'Max Players':max[i], 'Link':url[i]}, ignore_index=True)
     return df
+
+
+def grabInfo(info, ids):
+    format_ids = ','.join(map(str,ids))
+    link = "https://api.geekdo.com/xmlapi2/thing?id={}&stats=1".format(format_ids)
+    lol = []
+    for i in info:
+        if (info[i] == True):
+            lol.append(i)
+    print(lol)
