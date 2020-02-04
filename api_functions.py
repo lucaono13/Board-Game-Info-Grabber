@@ -121,7 +121,31 @@ def grabInfo(info, ids):
     format_ids = ','.join(map(str,ids))
     link = "https://api.geekdo.com/xmlapi2/thing?id={}&stats=1".format(format_ids)
     lol = []
+    tin = {}
+    expdata = {}
+
+
     for i in info:
-        if (info[i] == True):
+        #print(info[i])
+        if(info[i] == True):
             lol.append(i)
-    print(lol)
+
+    gamedata = {x for x in lol}
+    print(gamedata)
+
+    r = requests.get(link)
+    root = ET.fromstring(r.content)
+
+    #print(lol)
+    for i in ids:
+        expdata[i] = {}
+        for x in lol:
+            if (x == 'id'):
+                expdata[i]['UID'] = i
+        expdata[i]['Link'] = "https://boardgamegeek.com/boardgame/{}".format(i)
+
+    # Add to dict tin
+    for i in lol:
+        tin[i] = [i]
+    print('')
+    print(expdata)

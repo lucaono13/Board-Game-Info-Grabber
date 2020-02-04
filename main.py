@@ -2,12 +2,13 @@
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QTableWidgetItem, QLabel
-from PyQt5.QtGui import QPixmap
+#from PyQt5.QtGui import QPixmap
 from app import Ui_MainWindow
 from info import Ui_MainWindow as window2
 from api_functions import query, grabInfo
 import sys
-import urllib
+
+#import urllib
 data = []
 info = {}
 
