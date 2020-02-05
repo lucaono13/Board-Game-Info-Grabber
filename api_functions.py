@@ -1,6 +1,10 @@
 import requests
 import xml.etree.ElementTree as ET
 import pandas as pd
+from timebudget import timebudget
+
+timebudget.set_quiet()
+timebudget.report_at_exit()
 
 # Query the API to get basic info of board game (name, year, uid, type)
 def query(search, gameCheck, expanCheck):
@@ -116,12 +120,12 @@ def getInfo(csv, ids, df):
         df = df.append({'Name':name[i],'Year':year[i],'Min. Players':min[i], 'Max Players':max[i], 'Link':url[i]}, ignore_index=True)
     return df
 
-
+@timebudget
 def grabInfo(info, ids):
     format_ids = ','.join(map(str,ids))
     link = "https://api.geekdo.com/xmlapi2/thing?id={}&stats=1".format(format_ids)
     lol = []
-    tin = {}
+    #tin = {}
     expdata = {}
 
 
@@ -130,7 +134,7 @@ def grabInfo(info, ids):
         if(info[i] == True):
             lol.append(i)
 
-    gamedata = {x for x in lol}
+    #gamedata = {x for x in lol}
     #print(gamedata)
 
     r = requests.get(link)
@@ -141,72 +145,111 @@ def grabInfo(info, ids):
     for item in root.findall('item'):
         id = item.get('id')
         playtime = []
+        tags = []
+        c_expan = 0
+        arts, des, mechs, cats, pubs, expan, = ([],) * 6
         for x in item.iter('*'):
+            tags.append(x.tag)
             if(x.tag == 'item'):
                 expdata[id] = {}
+            if(x.tag == 'image'):
+                img = x.text
+                if('image' in lol):
+                    #expdata[id]['Image'] = x.text
+                    if('image' not in tags):
+                        expdata[id]['Image'] = 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png'
+                    else:
+                        expdata[id]['Image'] = img
+            """if('image' not in tags):
+                if('image' in lol):
+                    expdata[id]['Image'] = 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png'"""
             if((x.tag == 'name')):
-                #print('name yes')
                 if('name' in lol):
                     if(x.get('type') == 'primary'):
                         expdata[id]['Name'] = x.get('value')
             if((x.tag == 'yearpublished')):
-                #print('year yes')
                 if('year' in lol):
                     expdata[id]['Year'] = x.get('value')
             if((x.tag == 'minplaytime')):
-                #print('min time yes')
                 if('playtime' in lol):
                     playtime.append(x.get('value'))
             if((x.tag == 'maxplaytime')):
-                #print('max time yes')
                 if('playtime' in lol):
                     playtime.append(x.get('value'))
             if((x.tag == 'minplayers')):
-                #print('min play yes')
                 if('players' in lol):
                     expdata[id]['Min. Players'] = x.get('value')
             if((x.tag == 'maxplayers')):
-                #print('max play yes')
                 if('players' in lol):
                     expdata[id]['Max Players'] = x.get('value')
             if('id' in lol):
-                #print('id yes')
                 if('id' in lol):
                     expdata[id]['UID'] = id
             if((x.tag == 'description')):
-                #print('desc yes')
                 if('description' in lol):
                     expdata[id]['Description'] = x.get('value')
             if('link' in lol):
-                #print('link yes')
                 if('link' in lol):
                     expdata[id]['Link'] = "https://boardgamegeek.com/boardgame/{}".format(id)
             if((x.tag == 'minage')):
-                #print('age yes')
                 if('age' in lol):
                     expdata[id]['Age'] = x.get('value')
             if( (x.tag == 'rank')):
-                #print('bgg rank yes')
                 if('bgg_rank' in lol):
                     if(x.get('friendlyname' == 'Board Game Rank')):
                         expdata[id]['BGG Rank'] = x.get('value')
             if((x.tag == 'usersrated')):
-                #print('ratings c yes')
                 if('ratings_c' in lol):
                     expdata[id]['# of Ratings'] = x.get('value')
             if( (x.tag == 'average')):
-                #print('rating yes')
                 if('rating' in lol):
                     expdata[id]['BGG Score'] = x.get('value')
             if((x.tag == 'averageweight')):
-                #print('weight yes')
                 if('complexity' in lol):
                     expdata[id]['Complexity'] = x.get('value')
-
+            if(x.tag == 'image'):
+                if('image' in lol):
+                    expdata[id]['Image'] = x.get('value')
             if(len(playtime) == 2):
                 time = '-'.join(map(str,playtime))
                 time = time + " min"
                 expdata[id]['Playtime'] = time
+            if(('artists' in lol) or ('categories' in lol) or ('designers' in lol) or ('expans' in lol) or ('mechanisms' in lol) or ('expans_c' in lol) or ('publisher' in lol)):
+                if(x.tag == 'link'):
+                    if('categories' in lol):
+                        if(x.get('type') == 'boardgamecategory'):
+                            cats.append(x.get('value'))
+                    if('mechanisms' in lol):
+                        if(x.get('type') == 'boardgamemechanic'):
+                            mechs.append(x.get('value'))
+                    if(x.get('type') == 'boardgameexpansion'):
+                        c_expan += 1
+                        if('expan' in lol):
+                            expan.append(x.get('value'))
+                    if('designers' in lol):
+                        if(x.get('type') == 'boardgamedesigner'):
+                            des.append(x.get('value'))
+                    if('artists' in lol):
+                        if(x.get('type') == 'boardgameartist'):
+                            arts.append(x.get('value'))
+                    if('publisher' in lol):
+                        if(x.get('type') == 'boardgamepublisher'):
+                            pubs.append(x.get('value'))
+            if('expans_c' in lol):
+                expdata[id]['Expansions Avail.'] = c_expan
+            if('artists' in lol):
+                expdata[id]['Artists'] = arts
+            if('categories' in lol):
+                expdata[id]['Categories'] = cats
+            if('mechanisms' in lol):
+                expdata[id]['Mechanics'] = mechs
+            if('expan' in lol):
+                expdata[id]['Expansion Names'] = expan
+            if('designers' in lol):
+                expdata[id]['Designers'] = des
+            if('publisher' in lol):
+                expdata[id]['Publisher'] = pubs
+
 
     print(expdata)
 
