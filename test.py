@@ -13,7 +13,14 @@ data = {}
     #data[id] = {}
 
 for item in root.findall('item'):
-    for x in item.iter('*'):
-        #print(x.tag)
-        if(x.tag == 'image'):
-            print(x.text)
+    votes = {}
+    for x in item.iter('poll'):
+        if(x.get('name') == 'suggested_numplayers'):
+            #votes = {}
+            for j in x.findall('results'):
+                for k in j.iter('result'):
+                    if(k.get('value') == 'Best'):
+                        votes[j.get('numplayers')] = int(k.get('numvotes'))
+
+    print(votes)
+    print(max(votes, key=votes.get))
