@@ -7,6 +7,7 @@ from app import Ui_MainWindow
 from info import Ui_MainWindow as window2
 from api_functions import query, grabInfo
 import sys
+import pandas as pd
 
 #import urllib
 data = []
