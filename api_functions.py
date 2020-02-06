@@ -2,6 +2,7 @@ import requests
 import xml.etree.ElementTree as ET
 import pandas as pd
 from timebudget import timebudget
+import csv
 
 timebudget.set_quiet()
 timebudget.report_at_exit()
@@ -127,6 +128,7 @@ def grabInfo(info, ids):
     lol = []
     #tin = {}
     expdata = {}
+    output = pd.DataFrame()
 
 
     for i in info:
@@ -153,16 +155,15 @@ def grabInfo(info, ids):
             if(x.tag == 'item'):
                 expdata[id] = {}
             if(x.tag == 'image'):
-                img = x.text
+                #img = str(x.text)
+                #print(img)
                 if('image' in lol):
                     #expdata[id]['Image'] = x.text
                     if('image' not in tags):
                         expdata[id]['Image'] = 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png'
                     else:
-                        expdata[id]['Image'] = img
-            """if('image' not in tags):
-                if('image' in lol):
-                    expdata[id]['Image'] = 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png'"""
+                        #print(img)
+                        expdata[id]['Image'] = x.text
             if((x.tag == 'name')):
                 if('name' in lol):
                     if(x.get('type') == 'primary'):
@@ -207,9 +208,6 @@ def grabInfo(info, ids):
             if((x.tag == 'averageweight')):
                 if('complexity' in lol):
                     expdata[id]['Complexity'] = x.get('value')
-            if(x.tag == 'image'):
-                if('image' in lol):
-                    expdata[id]['Image'] = x.get('value')
             if(len(playtime) == 2):
                 time = '-'.join(map(str,playtime))
                 time = time + " min"
@@ -224,7 +222,7 @@ def grabInfo(info, ids):
                             mechs.append(x.get('value'))
                     if(x.get('type') == 'boardgameexpansion'):
                         c_expan += 1
-                        if('expan' in lol):
+                        if('expans' in lol):
                             expan.append(x.get('value'))
                     if('designers' in lol):
                         if(x.get('type') == 'boardgamedesigner'):
@@ -243,14 +241,35 @@ def grabInfo(info, ids):
                 expdata[id]['Categories'] = cats
             if('mechanisms' in lol):
                 expdata[id]['Mechanics'] = mechs
-            if('expan' in lol):
+            if('expans' in lol):
                 expdata[id]['Expansion Names'] = expan
             if('designers' in lol):
                 expdata[id]['Designers'] = des
             if('publisher' in lol):
-                expdata[id]['Publisher'] = pubs
+                expdata[id]['Publishers'] = pubs
+    #print(type(expdata[id]['Publisher']))
 
 
-    print(expdata)
+    #output = output.append(expdata, ignore_index = True)
+    #n_output = pd.DataFrame.from_dict({i: expdata[i] for i in expdata.keys()}, orient = 'index')
+    gid = []
+    frames = []
+    for b, d in expdata.iteritems():
+        gid.append(b)
+        frames.append(pd.DataFrame.from_dict(d, orient = 'index'))
+    n_output = pd.concat(frames, keys = gid)
+    #list_cols = ['Artists','Categories','Mechanics','Expansion Names','Designers','Publishers']
+    #print(type(n_output['Publisher'][0]))
+    #for c in n_output.columns:
+        #print(c)
+        #if(c in list_cols):
+            #print(c)
+            #print(n_output[c])
+            #n_output[c] = [', '.join(map(str,l)) for l in n_output[c]]
+    #n_output['Publisher'] = [', '.join(map(str, l)) for l in n_output['Publisher']]
+    #for c in list_cols:
+        #print(type(n_output[c][0]))
 
+    n_output.to_csv('test.csv', encoding = 'utf-8-sig', quoting=csv.QUOTE_MINIMAL)
+    print(n_output)
 #def dataGrab()
