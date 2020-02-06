@@ -22,5 +22,4 @@ for item in root.findall('item'):
                     if(k.get('value') == 'Best'):
                         votes[j.get('numplayers')] = int(k.get('numvotes'))
 
-    print(votes)
     print(max(votes, key=votes.get))

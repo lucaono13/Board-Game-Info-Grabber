@@ -149,7 +149,12 @@ def grabInfo(info, ids):
         playtime = []
         tags = []
         c_expan = 0
-        arts, des, mechs, cats, pubs, expan, = ([],) * 6
+        arts = []
+        des = []
+        mechs = []
+        cats = []
+        pubs = []
+        expan = []
         for x in item.iter('*'):
             tags.append(x.tag)
             if(x.tag == 'item'):
@@ -237,6 +242,7 @@ def grabInfo(info, ids):
                 expdata[id]['Expansions Avail.'] = c_expan
             if('artists' in lol):
                 expdata[id]['Artists'] = arts
+                print(arts)
             if('categories' in lol):
                 expdata[id]['Categories'] = cats
             if('mechanisms' in lol):
@@ -247,29 +253,38 @@ def grabInfo(info, ids):
                 expdata[id]['Designers'] = des
             if('publisher' in lol):
                 expdata[id]['Publishers'] = pubs
+            if('bestPlayers' in lol):
+                votes = {}
+                for x in item.iter('poll'):
+                    if(x.get('name') == 'suggested_numplayers'):
+                        for j in x.findall('results'):
+                            for k in j.iter('result'):
+                                if(k.get('value') == 'Best'):
+                                    votes[j.get('numplayers')] = int(k.get('numvotes'))
+                if (votes):
+                    expdata[id]['Best Player Count'] = max(votes, key=votes.get)
+                else:
+                    expdata[id]['Best Player Count'] = 'N/A'
     #print(type(expdata[id]['Publisher']))
 
 
     #output = output.append(expdata, ignore_index = True)
-    #n_output = pd.DataFrame.from_dict({i: expdata[i] for i in expdata.keys()}, orient = 'index')
-    gid = []
-    frames = []
-    for b, d in expdata.iteritems():
-        gid.append(b)
-        frames.append(pd.DataFrame.from_dict(d, orient = 'index'))
-    n_output = pd.concat(frames, keys = gid)
-    #list_cols = ['Artists','Categories','Mechanics','Expansion Names','Designers','Publishers']
+    print(expdata)
+    n_output = pd.DataFrame.from_dict({i: expdata[i] for i in expdata.keys()}, orient = 'index')
+
+    list_cols = ['Artists','Categories','Mechanics','Expansion Names','Designers','Publishers']
     #print(type(n_output['Publisher'][0]))
-    #for c in n_output.columns:
+    for c in n_output.columns:
         #print(c)
-        #if(c in list_cols):
+        if(c in list_cols):
             #print(c)
             #print(n_output[c])
-            #n_output[c] = [', '.join(map(str,l)) for l in n_output[c]]
+            n_output[c] = [', '.join(map(str,l)) for l in n_output[c]]
     #n_output['Publisher'] = [', '.join(map(str, l)) for l in n_output['Publisher']]
     #for c in list_cols:
         #print(type(n_output[c][0]))
 
-    n_output.to_csv('test.csv', encoding = 'utf-8-sig', quoting=csv.QUOTE_MINIMAL)
-    print(n_output)
+    #n_output.to_csv('test.csv', encoding = 'utf-8-sig', quoting=csv.QUOTE_MINIMAL)
+    return(n_output)
+    #print(n_output)
 #def dataGrab()

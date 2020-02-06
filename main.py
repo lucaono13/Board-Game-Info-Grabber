@@ -1,7 +1,7 @@
 # To run application/window
 
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QTableWidgetItem, QLabel
+from PyQt5.QtWidgets import QTableWidgetItem, QLabel, QTabWidget
 #from PyQt5.QtGui import QPixmap
 from app import Ui_MainWindow
 from info import Ui_MainWindow as window2
@@ -14,6 +14,8 @@ data = []
 info = {}
 
 class infoWindow(QtWidgets.QMainWindow):
+    csv_preview = pd.DataFrame()
+
     def __init__(self):
         super(infoWindow,self).__init__()
         self.ui = window2()
@@ -21,6 +23,7 @@ class infoWindow(QtWidgets.QMainWindow):
 
         self.ui.cancelButton.clicked.connect(self.close)
         self.ui.grabButton.clicked.connect(self.passInfo)
+        #self.ui.grabButton.clicked.connect(Window.previewBExp)
 
     def close(self):
         self.hide()
@@ -29,8 +32,11 @@ class infoWindow(QtWidgets.QMainWindow):
         info.clear()
         info.update([('id',self.ui.bggUID.isChecked()), ('age',self.ui.age.isChecked()), ('players',self.ui.nPlayers.isChecked()), ('name',self.ui.name.isChecked()), ('playtime',self.ui.playTime.isChecked()), ('year',self.ui.year.isChecked()), ('artists',self.ui.artists.isChecked()), ('categories',self.ui.categories.isChecked()), ('designers',self.ui.designers.isChecked()), ('expans',self.ui.expans.isChecked()), ('mechanisms',self.ui.mechanisms.isChecked()), ('expans_c',self.ui.nExpan.isChecked()), ('publisher',self.ui.publisher.isChecked()), ('bbg_rank',self.ui.bgg_rank.isChecked()), ('bestPlayers',self.ui.bnPlayers.isChecked()), ('complexity',self.ui.complexity.isChecked()), ('ratings_c',self.ui.nRatings.isChecked()), ('rating',self.ui.rating.isChecked()), ('image',self.ui.image.isChecked()), ('description',self.ui.description.isChecked()), ('link',self.ui.bgg_link.isChecked())])
         #print(info)
-        grabInfo(info, Window.ids_toAdd)
+        #csv_preview = pd.DataFrame()
+
+        self.csv_preview = self.csv_preview.append(grabInfo(info, Window.ids_toAdd))
         self.hide()
+        Window.previewBExp
 
 
 class Window(QtWidgets.QMainWindow):
@@ -129,6 +135,10 @@ class Window(QtWidgets.QMainWindow):
     def newWindow(self):
         self.w = infoWindow()
         self.w.show()
+
+    def previewBExp(self):
+        #self.ui.bgg_tabs.setTabEnabled(1)
+        self.ui.bgg_tabs.setCurrentIndex(1)
 
 app = QtWidgets.QApplication([])
 application = Window()
