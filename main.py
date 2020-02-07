@@ -1,29 +1,33 @@
 # To run application/window
 
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QTableWidgetItem, QLabel, QTabWidget
+from PyQt5.QtWidgets import QTableWidgetItem, QLabel, QTabWidget, QFileDialog
 #from PyQt5.QtGui import QPixmap
 from app import Ui_MainWindow
 from info import Ui_MainWindow as window2
 from api_functions import query, grabInfo
 import sys
 import pandas as pd
+import csv
 
 #import urllib
 data = []
 info = {}
+#csv_preview = pd.DataFrame()
+
 
 class infoWindow(QtWidgets.QMainWindow):
     csv_preview = pd.DataFrame()
 
-    def __init__(self):
-        super(infoWindow,self).__init__()
+    def __init__(self,parent=None):
+        super(infoWindow,self).__init__(parent)
         self.ui = window2()
         self.ui.setupUi(self)
 
         self.ui.cancelButton.clicked.connect(self.close)
         self.ui.grabButton.clicked.connect(self.passInfo)
-        #self.ui.grabButton.clicked.connect(Window.previewBExp)
+        #self.ui.grabButton.clicked.connect(self.parent().previewBExp)
+        #self.parent().previewBExp
 
     def close(self):
         self.hide()
@@ -32,11 +36,14 @@ class infoWindow(QtWidgets.QMainWindow):
         info.clear()
         info.update([('id',self.ui.bggUID.isChecked()), ('age',self.ui.age.isChecked()), ('players',self.ui.nPlayers.isChecked()), ('name',self.ui.name.isChecked()), ('playtime',self.ui.playTime.isChecked()), ('year',self.ui.year.isChecked()), ('artists',self.ui.artists.isChecked()), ('categories',self.ui.categories.isChecked()), ('designers',self.ui.designers.isChecked()), ('expans',self.ui.expans.isChecked()), ('mechanisms',self.ui.mechanisms.isChecked()), ('expans_c',self.ui.nExpan.isChecked()), ('publisher',self.ui.publisher.isChecked()), ('bbg_rank',self.ui.bgg_rank.isChecked()), ('bestPlayers',self.ui.bnPlayers.isChecked()), ('complexity',self.ui.complexity.isChecked()), ('ratings_c',self.ui.nRatings.isChecked()), ('rating',self.ui.rating.isChecked()), ('image',self.ui.image.isChecked()), ('description',self.ui.description.isChecked()), ('link',self.ui.bgg_link.isChecked())])
         #print(info)
-        #csv_preview = pd.DataFrame()
+        self.csv_preview = pd.DataFrame()
 
         self.csv_preview = self.csv_preview.append(grabInfo(info, Window.ids_toAdd))
-        self.hide()
-        Window.previewBExp
+        print(self.csv_preview)
+        self.parent().ui.bgg_tabs.setTabEnabled(1,True)
+        self.parent().ui.bgg_tabs.setCurrentIndex(1)
+
+        self.close()
 
 
 class Window(QtWidgets.QMainWindow):
@@ -50,11 +57,13 @@ class Window(QtWidgets.QMainWindow):
         super(Window,self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.popUp = infoWindow(parent=self)
         self.ui.searchResults.setRowCount(0)
         self.ui.searchResults.setColumnCount(4)
         self.ui.searchResults.setHorizontalHeaderLabels(('Name','Year','UID','Type'))
         header = self.ui.searchResults.horizontalHeader()
         header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        #self.popUp = infoWindow()
 
         self.ui.bgg_tabs.setTabEnabled(1, False)
         self.ui.bgg_tabs.setTabEnabled(2, False)
@@ -65,6 +74,7 @@ class Window(QtWidgets.QMainWindow):
         self.ui.addButton.clicked.connect(self.enableButton)
         self.ui.removeButton.clicked.connect(self.removeIDs)
         self.ui.dataCollectionStart.clicked.connect(self.newWindow)
+        self.ui.exportButton.clicked.connect(self.saveFileDialog)
 
     def api_search(self):
         answers = query(self.ui.searchLine.text(), self.ui.gameCheck.isChecked(), self.ui.expanCheck.isChecked())
@@ -133,12 +143,24 @@ class Window(QtWidgets.QMainWindow):
         pass
 
     def newWindow(self):
-        self.w = infoWindow()
-        self.w.show()
+        #self.w = infoWindow()
+        self.popUp.show()
 
     def previewBExp(self):
         #self.ui.bgg_tabs.setTabEnabled(1)
-        self.ui.bgg_tabs.setCurrentIndex(1)
+        #self.ui.bgg_tabs.setCurrentIndex(1)
+        self.ui.bgg_tabs.setTabEnabled(2, True)
+
+    def saveFileDialog(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        fileName, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()","","All Files (*);;.csv Files (*.csv)", options=options)
+        if fileName:
+            print(fileName)
+            print(infoWindow.csv_preview)
+            expName = fileName + ".csv"
+            infoWindow.csv_preview.to_csv(expName, encoding = 'utf-8-sig', quoting=csv.QUOTE_MINIMAL)
+
 
 app = QtWidgets.QApplication([])
 application = Window()
