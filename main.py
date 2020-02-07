@@ -9,6 +9,7 @@ from api_functions import query, grabInfo
 import sys
 import pandas as pd
 import csv
+from datetime import datetime
 
 #import urllib
 data = []
@@ -42,15 +43,34 @@ class infoWindow(QtWidgets.QMainWindow):
         print(self.csv_preview)
         self.parent().ui.bgg_tabs.setTabEnabled(1,True)
         self.parent().ui.bgg_tabs.setCurrentIndex(1)
+        self.parent().ui.dfPreview.setEnabled(True)
+
+        self.setPreview()
+
+        Window.dfExport = self.csv_preview
 
         self.close()
 
+    def setPreview(self):
+        #dfCols = self.csv_preview.columns
+        #nhds = list(self.csv_preview)
+        #print(dfCols)
+        #print(nhds)
+        print(list(self.csv_preview[0].keys()))
+        self.parent().ui.dfPreview.setHorizontalHeaderLabels((list(self.csv_preview)))
+        for row in self.csv_preview:
+            inx = self.csv_preview.index(row)
+            self.parent().ui.dfPreview.insertRow(inx)
+            self.parent().ui.dfPreview.setItem(inx, 0,QTableWidgetItem(str(row[0])))
+        #for i in nhds:
+        #self.parent().ui.dfPreview.setHorizontalHeaderLabels((nhds))
 
 class Window(QtWidgets.QMainWindow):
 
     # Variables used across multiple functions
     gamesToBeAdded = []
     ids_toAdd = []
+    dfExport = pd.DataFrame()
 
 
     def __init__(self):
@@ -74,7 +94,9 @@ class Window(QtWidgets.QMainWindow):
         self.ui.addButton.clicked.connect(self.enableButton)
         self.ui.removeButton.clicked.connect(self.removeIDs)
         self.ui.dataCollectionStart.clicked.connect(self.newWindow)
+        #self.ui.exportButton.clicked.connect(self.updateExport)
         self.ui.exportButton.clicked.connect(self.saveFileDialog)
+
 
     def api_search(self):
         answers = query(self.ui.searchLine.text(), self.ui.gameCheck.isChecked(), self.ui.expanCheck.isChecked())
@@ -154,12 +176,15 @@ class Window(QtWidgets.QMainWindow):
     def saveFileDialog(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()","","All Files (*);;.csv Files (*.csv)", options=options)
+        #now = datetime.now()
+        #dt1 = now.strftime("%H:%M_%D-%M-%y")
+        #defaultName = dt1 + "_exp"
+        fileName, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()","",".csv Files (*.csv)", options=options)
         if fileName:
             print(fileName)
-            print(infoWindow.csv_preview)
+            print(self.dfExport)
             expName = fileName + ".csv"
-            infoWindow.csv_preview.to_csv(expName, encoding = 'utf-8-sig', quoting=csv.QUOTE_MINIMAL)
+            self.dfExport.to_csv(expName, encoding = 'utf-8-sig', quoting=csv.QUOTE_MINIMAL, index = False)
 
 
 app = QtWidgets.QApplication([])

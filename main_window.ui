@@ -233,7 +233,7 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_7">
         <item row="1" column="0">
-         <widget class="QTableWidget" name="df_to_csv">
+         <widget class="QTableWidget" name="dfPreview">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -272,7 +272,7 @@
      <x>0</x>
      <y>0</y>
      <width>679</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
