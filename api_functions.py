@@ -141,8 +141,8 @@ def grabInfo(info, ids):
 
     r = requests.get(link)
     root = ET.fromstring(r.content)
-    print(info)
-    print(lol)
+    #print(info)
+    #print(lol)
 
     for item in root.findall('item'):
         id = item.get('id')
@@ -269,7 +269,7 @@ def grabInfo(info, ids):
 
 
     #output = output.append(expdata, ignore_index = True)
-    print(expdata)
+    #print(expdata)
     n_output = pd.DataFrame.from_dict({i: expdata[i] for i in expdata.keys()}, orient = 'index')
 
     list_cols = ['Artists','Categories','Mechanics','Expansion Names','Designers','Publishers']
