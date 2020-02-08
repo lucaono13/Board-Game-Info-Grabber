@@ -6,10 +6,6 @@ Another application created in order to get board game data from Board Game Geek
 
  Based off Kivy created application. Will be using functions from that app as well as adding more features.
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8acb7e1387117253bf9c8733496354bc7888ef75
 ## Features
 * Search Board Game Geek for games matching search
 * Sort by name, year, ID, or type2
@@ -20,10 +16,6 @@ Another application created in order to get board game data from Board Game Geek
 * Preview .csv file before export
 * Export completed .csv file
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8acb7e1387117253bf9c8733496354bc7888ef75
 ## Features to come
 * Add owners to board games if wanted
 * Import existing .csv file and add/remove games
