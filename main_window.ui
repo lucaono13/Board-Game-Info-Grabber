@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>679</width>
-    <height>470</height>
+    <height>436</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,19 +20,24 @@
       <property name="sizeConstraint">
        <enum>QLayout::SetNoConstraint</enum>
       </property>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="searchLine">
-        <property name="clearButtonEnabled">
-         <bool>false</bool>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="font">
+         <font>
+          <family>Times New Roman</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Board Game Name</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QCheckBox" name="expanCheck">
-        <property name="text">
-         <string>Expansion</string>
-        </property>
-        <property name="checked">
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="searchLine">
+        <property name="clearButtonEnabled">
          <bool>false</bool>
         </property>
        </widget>
@@ -50,18 +55,13 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="font">
-         <font>
-          <family>Times New Roman</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
+      <item row="1" column="1">
+       <widget class="QCheckBox" name="expanCheck">
         <property name="text">
-         <string>Board Game Name</string>
+         <string>Expansion</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -69,6 +69,13 @@
        <widget class="QCheckBox" name="gameCheck">
         <property name="text">
          <string>Game</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="csvImport">
+        <property name="text">
+         <string>Import .csv</string>
         </property>
        </widget>
       </item>
@@ -232,7 +239,7 @@
         <string>CSV Preview</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_7">
-        <item row="2" column="0">
+        <item row="3" column="0">
          <widget class="QTableView" name="dfPreview">
           <property name="alternatingRowColors">
            <bool>true</bool>
@@ -252,19 +259,36 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QPushButton" name="exportButton">
-          <property name="text">
-           <string>Export</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="selectedData">
-          <property name="text">
-           <string>Data</string>
-          </property>
-         </widget>
+        <item row="3" column="1">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QPushButton" name="selectedData">
+            <property name="text">
+             <string>Remove</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="exportButton">
+            <property name="text">
+             <string>Export</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -272,7 +296,11 @@
        <attribute name="title">
         <string>CSV Edit</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_6"/>
+       <layout class="QGridLayout" name="gridLayout_6">
+        <item row="0" column="0">
+         <widget class="QTableView" name="tableView"/>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -293,12 +321,18 @@
      <string>File</string>
     </property>
     <addaction name="actionOpen"/>
+    <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
   <action name="actionOpen">
    <property name="text">
     <string>Open</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>
