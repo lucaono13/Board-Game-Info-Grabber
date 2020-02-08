@@ -116,7 +116,7 @@ class Window(QtWidgets.QMainWindow):
         self.ui.searchResults.itemDoubleClicked.connect(self.enableButton)
         self.ui.selectedGamees.itemDoubleClicked.connect(self.removeIDs)
         #self.ui.dfPreview.itemDoubleClicked.connect(self.dfRemoveRow)
-        self.ui.selectedData.clicked.connect(self.dfRemoveRow)
+        self.ui.removeRow.clicked.connect(self.dfRemoveRow)
 
     def dfRemoveRow(self):
         for idx in self.ui.dfPreview.selectionModel().selectedRows():
