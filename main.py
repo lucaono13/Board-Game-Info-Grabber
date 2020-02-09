@@ -2,10 +2,11 @@
 
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QAbstractTableModel, Qt
-from PyQt5.QtWidgets import QTableWidgetItem, QLabel, QTabWidget, QFileDialog, QTableView
+from PyQt5.QtWidgets import QTableWidgetItem, QLabel, QTabWidget, QFileDialog, QTableView, QWidget, QDialog
 #from PyQt5.QtGui import QPixmap
 from app import Ui_MainWindow
 from info import Ui_MainWindow as window2
+from aboutD import Ui_Dialog as about
 from api_functions import query, grabInfo
 import sys
 import pandas as pd
@@ -39,6 +40,12 @@ class pandasModel(QAbstractTableModel):
         if orientation == Qt.Horizontal and role == Qt.DisplayRole:
             return self._data.columns[col]
         return None
+
+class aboutPopup(QDialog):
+    def __init__(self, parent = None):
+        super(aboutPopup,self).__init__(parent)
+        self.ui = about()
+        self.ui.setupUi(self)
 
 class infoWindow(QtWidgets.QMainWindow):
     csv_preview = pd.DataFrame()
@@ -91,6 +98,7 @@ class Window(QtWidgets.QMainWindow):
         super(Window,self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.about = aboutPopup(parent=self)
         self.popUp = infoWindow(parent=self)
         self.ui.searchResults.setRowCount(0)
         self.ui.searchResults.setColumnCount(4)
@@ -117,6 +125,12 @@ class Window(QtWidgets.QMainWindow):
         self.ui.selectedGamees.itemDoubleClicked.connect(self.removeIDs)
         #self.ui.dfPreview.itemDoubleClicked.connect(self.dfRemoveRow)
         self.ui.removeRow.clicked.connect(self.dfRemoveRow)
+        self.ui.actionAbout.triggered.connect(self.showAbout)
+        self.ui.csvImport.clicked.connect(self.openFileNameDialog)
+        self.ui.actionOpen.triggered.connect(self.openFileNameDialog)
+
+    def showAbout(self):
+        self.about.show()
 
     def dfRemoveRow(self):
         for idx in self.ui.dfPreview.selectionModel().selectedRows():
@@ -177,10 +191,7 @@ class Window(QtWidgets.QMainWindow):
         self.ui.dataCollectionStart.setEnabled(True)
 
     def removeIDs(self):
-        """for j in range(len(self.ids_toAdd)):
-            print(self.gamesToBeAdded[j], self.ids_toAdd[j])"""
         r_idxs = []
-        ur_idxs = []
         for idx in self.ui.selectedGamees.selectionModel().selectedRows():
             gamename = self.ui.selectedGamees.item(idx.row()).text()
             r_idxs.append(self.gamesToBeAdded.index(gamename))
@@ -188,22 +199,11 @@ class Window(QtWidgets.QMainWindow):
         for item in self.ui.selectedGamees.selectedItems():
             self.ui.selectedGamees.takeItem(self.ui.selectedGamees.row(item))
         for i in r_idxs:
-            #print(r_idxs)
-            #self.ids_toAdd.remove(i)
             del self.ids_toAdd[i]
-
-        """print("")
-        for j in range(len(self.ids_toAdd)):
-            print(self.gamesToBeAdded[j], self.ids_toAdd[j])"""
 
     def newWindow(self):
         #self.w = infoWindow()
         self.popUp.show()
-
-    def previewBExp(self):
-        #self.ui.bgg_tabs.setTabEnabled(1)
-        #self.ui.bgg_tabs.setCurrentIndex(1)
-        self.ui.bgg_tabs.setTabEnabled(2, True)
 
     def saveFileDialog(self):
         options = QFileDialog.Options()
@@ -218,6 +218,19 @@ class Window(QtWidgets.QMainWindow):
             expName = fileName + ".csv"
             self.dfExport.to_csv(expName, encoding = 'utf-8-sig', quoting=csv.QUOTE_MINIMAL, index = False)
 
+    def openFileNameDialog(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        #fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "",".csv Files (*.csv)", options = options)
+        #if fileName:
+        #    print(fileName)
+        fileURL, _ = QFileDialog.getOpenFileUrl(self,"QFileDialog.getOpenFileUrl()", "",".csv Files (*.csv)", options = options)
+        if fileURL:
+            self.dfExport = pd.read_csv(fileURL.toString(), index_col = False)
+        self.ui.bgg_tabs.setTabEnabled(1,True)
+        self.ui.bgg_tabs.setCurrentIndex(1)
+        self.ui.dfPreview.setEnabled(True)
+        self.updatePreview()
 
 app = QtWidgets.QApplication([])
 application = Window()

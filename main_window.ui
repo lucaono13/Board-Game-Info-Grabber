@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>679</width>
-    <height>436</height>
+    <height>439</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Board Game Grabber</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -306,7 +306,7 @@
      <x>0</x>
      <y>0</y>
      <width>679</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
