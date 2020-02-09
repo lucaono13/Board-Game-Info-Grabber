@@ -50,7 +50,7 @@
       </font>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gianluca Onorato&lt;/p&gt;&lt;p&gt;Twitter: &lt;a href=&quot;https://twitter.com/lucaono13&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;@lucaono13&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;2020&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gianluca Onorato&lt;/p&gt;&lt;p&gt;Twitter: &lt;a href=&quot;https://twitter.com/lucaono13&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;@lucaono13&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::RichText</enum>

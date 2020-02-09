@@ -75,15 +75,18 @@ class infoWindow(QtWidgets.QMainWindow):
         self.parent().ui.bgg_tabs.setCurrentIndex(1)
         self.parent().ui.dfPreview.setEnabled(True)
 
+        #self.setPreview()
+        #self.parent().dfExport = self.csv_preview
+        self.parent().dfExport = self.parent().dfExport.append(self.csv_preview)
         self.setPreview()
-        self.parent().dfExport = self.csv_preview
-
-        Window.dfExport = self.csv_preview
-
+        #Window.dfExport = self.csv_preview
+        self.parent().clearGTA()
+        self.parent().ui.selectedGamees.clear()
         self.close()
 
     def setPreview(self):
-        model = pandasModel(self.csv_preview)
+        #model = pandasModel(self.csv_preview)
+        model = pandasModel(self.parent().dfExport)
         self.parent().ui.dfPreview.setModel(model)
 
 class Window(QtWidgets.QMainWindow):
@@ -113,7 +116,9 @@ class Window(QtWidgets.QMainWindow):
         #self.ui.dfPreview.setEnabled(True)
 
         self.ui.searchButton.clicked.connect(self.api_search)
+        self.ui.searchButton.clicked.connect(self.searchIndex)
         self.ui.searchLine.returnPressed.connect(self.api_search)
+        self.ui.searchLine.returnPressed.connect(self.searchIndex)
         self.ui.addButton.clicked.connect(self.addIDs)
         self.ui.addButton.clicked.connect(self.enableButton)
         self.ui.removeButton.clicked.connect(self.removeIDs)
@@ -128,6 +133,12 @@ class Window(QtWidgets.QMainWindow):
         self.ui.actionAbout.triggered.connect(self.showAbout)
         self.ui.csvImport.clicked.connect(self.openFileNameDialog)
         self.ui.actionOpen.triggered.connect(self.openFileNameDialog)
+
+    def clearGTA(self):
+        self.gamesToBeAdded.clear()
+
+    def searchIndex(self):
+        self.ui.bgg_tabs.setCurrentIndex(0)
 
     def showAbout(self):
         self.about.show()
@@ -212,11 +223,20 @@ class Window(QtWidgets.QMainWindow):
         #dt1 = now.strftime("%H:%M_%D-%M-%y")
         #defaultName = dt1 + "_exp"
         fileName, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()","",".csv Files (*.csv)", options=options)
+        print(fileName)
         if fileName:
             #print(fileName)
             #print(self.dfExport)
-            expName = fileName + ".csv"
+            #print(type(fileName))
+            if(fileName.endswith('.csv')):
+                expName = fileName
+                print(fileName)
+                print(expName)
+            else:
+                expName = fileName + ".csv"
             self.dfExport.to_csv(expName, encoding = 'utf-8-sig', quoting=csv.QUOTE_MINIMAL, index = False)
+        else:
+            print('nothing')
 
     def openFileNameDialog(self):
         options = QFileDialog.Options()
@@ -225,12 +245,16 @@ class Window(QtWidgets.QMainWindow):
         #if fileName:
         #    print(fileName)
         fileURL, _ = QFileDialog.getOpenFileUrl(self,"QFileDialog.getOpenFileUrl()", "",".csv Files (*.csv)", options = options)
-        if fileURL:
+        print(fileURL)
+        if (fileURL.toString() != ''):
             self.dfExport = pd.read_csv(fileURL.toString(), index_col = False)
-        self.ui.bgg_tabs.setTabEnabled(1,True)
-        self.ui.bgg_tabs.setCurrentIndex(1)
-        self.ui.dfPreview.setEnabled(True)
-        self.updatePreview()
+            self.ui.bgg_tabs.setTabEnabled(1,True)
+            self.ui.bgg_tabs.setCurrentIndex(1)
+            self.ui.dfPreview.setEnabled(True)
+            self.updatePreview()
+        else:
+            print('nada')
+
 
 app = QtWidgets.QApplication([])
 application = Window()

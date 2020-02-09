@@ -44,4 +44,4 @@ class Ui_Dialog(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "About"))
         self.label.setText(_translate("Dialog", "Made by:"))
-        self.label_2.setText(_translate("Dialog", "<html><head/><body><p>Gianluca Onorato</p><p>Twitter: <a href=\"https://twitter.com/lucaono13\"><span style=\" text-decoration: underline; color:#0000ff;\">@lucaono13</span></a></p><p>2020</p></body></html>"))
+        self.label_2.setText(_translate("Dialog", "<html><head/><body><p>Gianluca Onorato</p><p>Twitter: <a href=\"https://twitter.com/lucaono13\"><span style=\" text-decoration: underline; color:#0000ff;\">@lucaono13</span></a></p></body></html>"))
