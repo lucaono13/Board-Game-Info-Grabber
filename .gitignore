@@ -5,6 +5,7 @@ about.*
 *.csv
 *.lnk
 
-
+src/
+target/
 venv/
 __pycache__/
