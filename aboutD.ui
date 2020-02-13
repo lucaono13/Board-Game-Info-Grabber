@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>225</width>
-    <height>139</height>
+    <width>278</width>
+    <height>183</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>0</height>
+       <height>10</height>
       </size>
      </property>
     </spacer>
@@ -50,13 +50,16 @@
       </font>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gianluca Onorato&lt;/p&gt;&lt;p&gt;Twitter: &lt;a href=&quot;https://twitter.com/lucaono13&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;@lucaono13&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gianluca Onorato&lt;/p&gt;&lt;p&gt;Twitter: &lt;a href=&quot;https://twitter.com/lucaono13&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;@lucaono13&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Icon made by&lt;span style=&quot; font-family:'Arial'; font-size:medium; color:#222222;&quot;&gt; Delapouite. Available on &lt;/span&gt;&lt;a href=&quot;https://game-icons.net&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://game-icons.net&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="textFormat">
       <enum>Qt::RichText</enum>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
      <property name="openExternalLinks">
       <bool>true</bool>
@@ -71,7 +74,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>0</height>
+       <height>10</height>
       </size>
      </property>
     </spacer>

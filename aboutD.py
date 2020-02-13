@@ -13,10 +13,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(225, 139)
+        Dialog.resize(278, 183)
         self.gridLayout = QtWidgets.QGridLayout(Dialog)
         self.gridLayout.setObjectName("gridLayout")
-        spacerItem = QtWidgets.QSpacerItem(20, 0, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem, 0, 0, 1, 1)
         self.label = QtWidgets.QLabel(Dialog)
         font = QtGui.QFont()
@@ -31,10 +31,11 @@ class Ui_Dialog(object):
         self.label_2.setFont(font)
         self.label_2.setTextFormat(QtCore.Qt.RichText)
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_2.setWordWrap(True)
         self.label_2.setOpenExternalLinks(True)
         self.label_2.setObjectName("label_2")
         self.gridLayout.addWidget(self.label_2, 3, 0, 1, 1)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 0, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem1, 4, 0, 1, 1)
 
         self.retranslateUi(Dialog)
@@ -44,4 +45,4 @@ class Ui_Dialog(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "About"))
         self.label.setText(_translate("Dialog", "Made by:"))
-        self.label_2.setText(_translate("Dialog", "<html><head/><body><p>Gianluca Onorato</p><p>Twitter: <a href=\"https://twitter.com/lucaono13\"><span style=\" text-decoration: underline; color:#0000ff;\">@lucaono13</span></a></p></body></html>"))
+        self.label_2.setText(_translate("Dialog", "<html><head/><body><p>Gianluca Onorato</p><p>Twitter: <a href=\"https://twitter.com/lucaono13\"><span style=\" text-decoration: underline; color:#0000ff;\">@lucaono13</span></a></p><p>Icon made by<span style=\" font-family:\'Arial\'; font-size:medium; color:#222222;\"> Delapouite. Available on </span><a href=\"https://game-icons.net\"><span style=\" text-decoration: underline; color:#0000ff;\">https://game-icons.net</span></a></p></body></html>"))

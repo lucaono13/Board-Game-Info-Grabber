@@ -7,11 +7,15 @@
     <x>0</x>
     <y>0</y>
     <width>679</width>
-    <height>439</height>
+    <height>443</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Board Game Grabber</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../Pictures/Wallpapers/tabletop-players.png</normaloff>../Pictures/Wallpapers/tabletop-players.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -93,7 +97,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="iconSize">
        <size>
@@ -282,16 +286,6 @@
            <enum>QAbstractItemView::SelectRows</enum>
           </property>
          </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="csv_edit">
-       <attribute name="title">
-        <string>CSV Edit</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_6">
-        <item row="0" column="0">
-         <widget class="QTableView" name="tableView"/>
         </item>
        </layout>
       </widget>
