@@ -19,3 +19,4 @@ Another application created in order to get board game data from Board Game Geek
 ## Features to come
 * Add owners to board games if wanted
 * Import existing .csv file and add/remove games
+* Show game cover when selecting an item on the search results
